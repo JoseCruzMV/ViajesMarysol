@@ -13,7 +13,14 @@ builder.Services.AddDbContext<ViajesMarysolDBContext>(options =>
     options.UseSqlServer(connectionString, optSql => optSql.MigrationsAssembly("ViajesMarysol.Data"))
 );
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => { 
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredLength = 6;
+})
     .AddEntityFrameworkStores<ViajesMarysolDBContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
