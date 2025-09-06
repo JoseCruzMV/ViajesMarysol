@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViajesMarysol", "ViajesMarysol\ViajesMarysol.csproj", "{757A7B10-20D8-4DB3-B713-D5AD929C8CAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViajesMarysol.Models", "ViajesMarysol.Models\ViajesMarysol.Models.csproj", "{14FDD456-F2A3-4647-B886-F1478154851F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViajesMarysol.Data", "ViajesMarysol.Data\ViajesMarysol.Data.csproj", "{ABCC8448-32B3-4CC2-BC2E-C51DA4E21667}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{757A7B10-20D8-4DB3-B713-D5AD929C8CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{757A7B10-20D8-4DB3-B713-D5AD929C8CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{757A7B10-20D8-4DB3-B713-D5AD929C8CAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FDD456-F2A3-4647-B886-F1478154851F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FDD456-F2A3-4647-B886-F1478154851F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FDD456-F2A3-4647-B886-F1478154851F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FDD456-F2A3-4647-B886-F1478154851F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCC8448-32B3-4CC2-BC2E-C51DA4E21667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCC8448-32B3-4CC2-BC2E-C51DA4E21667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCC8448-32B3-4CC2-BC2E-C51DA4E21667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCC8448-32B3-4CC2-BC2E-C51DA4E21667}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
