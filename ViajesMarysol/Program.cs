@@ -19,7 +19,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
         options.Password.RequireLowercase = false;
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireUppercase = false;
-        options.Password.RequiredLength = 6;
+        options.Password.RequiredLength = 5;
 })
     .AddEntityFrameworkStores<ViajesMarysolDBContext>()
     .AddDefaultTokenProviders()
@@ -29,6 +29,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+// Seed the database with the default admin user
+await SeedDataAsync(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -55,3 +58,20 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 app.Run();
+
+
+
+async Task SeedDataAsync(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    try
+    {
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        await ViajesMarysol.Data.MockData.MockData.InitializeAsync(roleManager, userManager);
+    }catch (Exception ex)
+    {
+        Console.WriteLine("An error occurred seeding the DB: "+ex.Message);
+    }
+}
