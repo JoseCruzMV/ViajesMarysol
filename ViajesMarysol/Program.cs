@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ViajesMarysol.Data;
+using ViajesMarysol.Mappers.Implementations;
+using ViajesMarysol.Mappers.Interfaces;
 using ViajesMarysol.Models.Users;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
     .AddEntityFrameworkStores<ViajesMarysolDBContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
+
+builder.Services.AddScoped<ITourMapper, TourMapper>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
