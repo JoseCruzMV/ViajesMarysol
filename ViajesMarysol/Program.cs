@@ -1,7 +1,25 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ViajesMarysol.Data;
+using ViajesMarysol.Models.Users;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ViajesMarysolDBContext>(options =>
+    options.UseSqlServer(connectionString, optSql => optSql.MigrationsAssembly("ViajesMarysol.Data"))
+);
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<ViajesMarysolDBContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -18,10 +36,15 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Identity setttings
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+app.MapRazorPages();
 app.Run();
