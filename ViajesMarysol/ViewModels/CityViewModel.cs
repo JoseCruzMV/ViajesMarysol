@@ -10,4 +10,6 @@ public class CityViewModel
     [Required]
     [MaxLength(100)]
     public string Country { get; set; } = string.Empty;
+
+    public bool Selected { get; set; } = false;
 }

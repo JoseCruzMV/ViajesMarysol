@@ -3,6 +3,7 @@
 namespace ViajesMarysol.ViewModels;
 public class TourViewModel
 {
+    [Key]
     public int Id { get; set; }
     [Required]
     [MaxLength(100)]
@@ -19,4 +20,6 @@ public class TourViewModel
     [Range(1, 30)]
     [Display(Name = "Duración (días)")]
     public int DurationInDays { get; set; }
+
+    public List<CityViewModel>? Cities{ get; set; } = [];
 }
