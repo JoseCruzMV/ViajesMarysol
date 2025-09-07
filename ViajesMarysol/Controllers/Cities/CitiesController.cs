@@ -23,4 +23,28 @@ public class CitiesController(
             .ToList();
         return View(cities);
     }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(CityViewModel cityViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            var cityModel = new Models.City
+            {
+                Name = cityViewModel.Name,
+                Country = cityViewModel.Country
+            };
+            _context.Cities.Add(cityModel);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(cityViewModel);
+    }
 }
