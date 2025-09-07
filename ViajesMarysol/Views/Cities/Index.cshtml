@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CityViewModel>
+@{
+    ViewData["Title"] = "Administración de Ciudades";
+}
+
+<h1 class="display-6">@ViewData["Title"]</h1>
+<hr />
+
+<p>
+    <a asp-action="Create" class="btn btn-primary mb-3">Agregar Nueva Ciudad</a>
+</p>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>País</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var city in Model)
+        {
+            <tr>
+                <td>@city.Name</td>
+                <td>@city.Country</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@city.Id" class="btn btn-sm btn-info">Editar</a>
+                    <form asp-action="Delete" asp-route-id="@city.Id" method="post" style="display: inline">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar esta ciudad?');">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
