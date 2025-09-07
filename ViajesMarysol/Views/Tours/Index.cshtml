@@ -35,10 +35,23 @@
                     <td>@tour.DurationInDays</td>
                     <td>Fecha Inicio</td>
                     <td>Fecha fin</td>
-                    <td>Ciudades</td>
+                    <td>
+                        @if (tour.Cities is not null && tour.Cities.Count > 0)
+                        {
+                            <ul>
+                                @foreach(var city in tour.Cities)
+                                {
+                                    <li>@city.Name</li>
+                                }
+                            </ul>
+                        }else
+                        {
+                            <span>No hay ciudades asignadas</span>
+                        }
+                    </td>
                     <td>
                         <a asp-action="" asp-controller="Tours" asp-route-id="@tour.Id" class="btn btn-sm btn-info">Editar</a>
-                        <a asp-action="" asp-controller="Tours" asp-route-id="@tour.Id" class="btn btn-sm btn-secondary">Detalles</a>
+                        @* <a asp-action="" asp-controller="Tours" asp-route-id="@tour.Id" class="btn btn-sm btn-secondary">Detalles</a> *@
                         <a asp-action="" asp-controller="Tours" asp-route-id="@tour.Id" class="btn btn-sm btn-danger">Borrar</a>
                     </td>
                 </tr>

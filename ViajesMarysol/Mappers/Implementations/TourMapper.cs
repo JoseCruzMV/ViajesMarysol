@@ -17,14 +17,25 @@ public class TourMapper : ITourMapper
 
     public TourViewModel TourModelToViewModel(Tour tourModel)
     {
-        return new TourViewModel
+        TourViewModel tourViewModel_helper = new TourViewModel
         {
             Id = tourModel.Id,
             Name = tourModel.Name,
             Description = tourModel.Description,
             Price = tourModel.Price,
-            DurationInDays = tourModel.DurationInDays
+            DurationInDays = tourModel.DurationInDays,
+            Cities = []
         };
+
+        if (tourModel.Cities is not null && tourModel.Cities.Count > 0)
+        {
+            foreach (City cityModel in tourModel.Cities)
+            {
+                tourViewModel_helper.Cities.Add( CityModelToViewModel(cityModel) );
+            }
+        }
+
+        return tourViewModel_helper;
     }
 
     public Tour TourViewModelToModel(TourViewModel tourViewModel)

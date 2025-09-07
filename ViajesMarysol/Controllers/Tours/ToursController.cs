@@ -20,7 +20,7 @@ public class ToursController(
     [HttpGet]
     public async Task<IActionResult> Index() {
         var tours = await _context.Tours.Include(t => t.Cities).ToListAsync();
-        List<TourViewModel> tourViewModels = new();
+        List<TourViewModel> tourViewModels = [];
         tours.ForEach(tour => 
             tourViewModels.Add( _tourMapper.TourModelToViewModel(tour) )
         );
