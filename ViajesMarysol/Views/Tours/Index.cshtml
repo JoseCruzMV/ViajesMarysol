@@ -50,7 +50,7 @@
                         }
                     </td>
                     <td>
-                        <a asp-action="" asp-controller="Tours" asp-route-id="@tour.Id" class="btn btn-sm btn-info">Editar</a>
+                        <a asp-action="Edit" asp-controller="Tours" asp-route-id="@tour.Id" class="btn btn-sm btn-info">Editar</a>
                         <form asp-action="Delete" asp-controller="Tours" asp-route-id="@tour.Id" method="post" style="display: inline">
                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar este tour?');">Borrar</button>
                         </form>

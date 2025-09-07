@@ -73,4 +73,68 @@ public class ToursController(
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id) 
+    {
+        var tourModel = await _context.Tours
+            .Include(t => t.Cities)
+            .FirstOrDefaultAsync(t => t.Id == id);
+        if (tourModel == null) 
+        {
+            return NotFound();
+        }
+        var cities = _context.Cities.ToList();
+        var tourViewModel = _tourMapper.TourModelToViewModel(tourModel);
+        tourViewModel.Cities?.Clear();
+        cities.ForEach(c => {
+            var cityViewModel = _tourMapper.CityModelToViewModel(c);
+            if (tourModel.Cities.Any(tc => tc.Id == c.Id)) 
+            {
+                cityViewModel.Selected = true;
+            }
+            tourViewModel.Cities?.Add(cityViewModel);
+        });
+        return View(tourViewModel);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, TourViewModel tourViewModel) 
+    {
+        if (id != tourViewModel.Id) 
+        {
+            return NotFound();
+        }
+        if (ModelState.IsValid) 
+        {
+            var tourModel = await _context.Tours
+                .Include(t => t.Cities)
+                .FirstOrDefaultAsync(t => t.Id == id);
+            if (tourModel == null) 
+            {
+                return NotFound();
+            }
+            tourModel.Name = tourViewModel.Name;
+            tourModel.Description = tourViewModel.Description;
+            tourModel.Price = tourViewModel.Price;
+            tourModel.DurationInDays = tourViewModel.DurationInDays;
+
+            tourModel.Cities.Clear();
+            tourViewModel.Cities?.Where(c => c.Selected).ToList().ForEach(c => {
+                var cityModel = _context.Cities.Find(c.Id);
+                if (cityModel != null) 
+                {
+                    tourModel.Cities.Add(cityModel);
+                }
+            });
+            _context.Tours.Update(tourModel);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        var cities = _context.Cities.ToList();
+        tourViewModel.Cities?.Clear();
+        cities.ForEach(c => tourViewModel.Cities?.Add( _tourMapper.CityModelToViewModel(c) ));
+        return View(tourViewModel);
+    }
 }
