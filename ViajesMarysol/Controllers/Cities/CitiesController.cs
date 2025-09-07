@@ -47,4 +47,18 @@ public class CitiesController(
         }
         return View(cityViewModel);
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        var city = _context.Cities.Find(id);
+        if (city == null)
+        {
+            return NotFound();
+        }
+        _context.Cities.Remove(city);
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
 }
