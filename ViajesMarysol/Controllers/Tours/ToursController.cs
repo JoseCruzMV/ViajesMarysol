@@ -60,4 +60,17 @@ public class ToursController(
 
         return View(tourViewModel);
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id) 
+    {
+        var tourModel = await _context.Tours.FindAsync(id);
+        if (tourModel == null) {
+            return NotFound();
+        }
+        _context.Tours.Remove(tourModel);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
 }
