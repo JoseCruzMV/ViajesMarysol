@@ -21,4 +21,6 @@ public class Tour
     
 
     public virtual ICollection<City> Cities { get; set; } = [];
+
+    public virtual ICollection<UserTour> UserTours { get; set; } = [];
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ViajesMarysol.Data;
 
@@ -11,9 +12,11 @@ using ViajesMarysol.Data;
 namespace ViajesMarysol.Data.Migrations
 {
     [DbContext(typeof(ViajesMarysolDBContext))]
-    partial class ViajesMarysolDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250908232155_AddUserTourRelationship")]
+    partial class AddUserTourRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
