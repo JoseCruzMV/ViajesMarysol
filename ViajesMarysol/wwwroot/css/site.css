@@ -1,3 +1,6 @@
+section{
+    padding: 10px 22px;
+}
 :root {
     --bs-primary: #005546; 
     --bs-secondary: #c8d2d7; 
