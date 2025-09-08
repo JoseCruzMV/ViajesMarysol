@@ -28,6 +28,23 @@ namespace ViajesMarysol.Controllers
             return View(tours);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Tours == null)
+            {
+                return NotFound();
+            }
+            var tour = await _context.Tours
+                .Include(t => t.Cities)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (tour == null)
+            {
+                return NotFound();
+            }
+            var tourViewModel = _tourMapper.TourModelToViewModel(tour);
+            return View(tourViewModel);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

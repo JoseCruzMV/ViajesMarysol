@@ -26,7 +26,7 @@
                             <p class="card-text">
                                 <strong>Destinos</strong>
                                 <ul>
-                                    @foreach (var city in tour.Cities)
+                                    @foreach (var city in tour.Cities!)
                                     {
                                         <li>@($"{city.Name}, {city.Country}")</li>
                                     }
@@ -34,7 +34,7 @@
                             </p>
                             <div class="mt-auto">
                                 <p class="card-text"><strong>Precio:</strong> $@tour.Price.ToString("F2")</p>
-                                @* <a href="@Url.Action("Details", "Tours", new { id = tour.Id })" class="btn btn-primary">Ver Detalles</a> *@
+                                <a asp-action="Details" asp-controller="Home" asp-route-id="@tour.Id" class="btn btn-primary">Ver Mas</a>
                             </div>
                         </div>
                     </div>
