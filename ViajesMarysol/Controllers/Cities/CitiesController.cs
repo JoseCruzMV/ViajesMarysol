@@ -61,4 +61,35 @@ public class CitiesController(
         _context.SaveChanges();
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        var city = _context.Cities.Find(id);
+        if (city == null)
+        {
+            return NotFound();
+        }
+        var cityViewModel = _tourMapper.CityModelToViewModel(city);
+        return View(cityViewModel);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(CityViewModel cityViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            var city = _context.Cities.Find(cityViewModel.Id);
+            if (city == null)
+            {
+                return NotFound();
+            }
+            city.Name = cityViewModel.Name;
+            city.Country = cityViewModel.Country;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(cityViewModel);
+    }
 }
