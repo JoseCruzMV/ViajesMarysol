@@ -5,17 +5,20 @@ using Microsoft.EntityFrameworkCore;
 using ViajesMarysol.Data;
 using ViajesMarysol.Mappers.Interfaces;
 using ViajesMarysol.Models;
+using ViajesMarysol.Services.Interfaces;
 using ViajesMarysol.ViewModels;
 
 namespace ViajesMarysol.Controllers
 {
     public class HomeController(
             ViajesMarysolDBContext context,
-            ITourMapper tourMapper
+            ITourMapper tourMapper,
+            IWeatherService weatherService
         ) : Controller
     {
         private readonly ViajesMarysolDBContext _context = context;
         private readonly ITourMapper _tourMapper = tourMapper;
+        private readonly IWeatherService _weatherService = weatherService;
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -42,7 +45,34 @@ namespace ViajesMarysol.Controllers
             {
                 return NotFound();
             }
-            var tourViewModel = _tourMapper.TourModelToViewModel(tour);
+
+            var weatherData = new Dictionary<string, CityForecastViewModel>();
+            if (tour.Cities is not null)
+            {
+                foreach (var city in tour.Cities)
+                {
+                    var forecast = await _weatherService.GetFiveDayForecastAsync(city.Name);
+                    weatherData[city.Name] = forecast;
+                }
+            }
+
+            var tourViewModel  = new TourDetailsViewModel
+            {
+                Id = tour.Id,
+                Name = tour.Name,
+                Description = tour.Description,
+                Price = tour.Price,
+                DurationInDays = tour.DurationInDays,
+                Cities = tour.Cities?.Select(c => new CityForecastViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Country = c.Country
+                }).ToList() ?? new List<CityForecastViewModel>(),
+                CityWeather = weatherData
+            };
+
+            //var tourViewModel = _tourMapper.TourModelToViewModel(tour);
             return View(tourViewModel);
         }
 

@@ -4,6 +4,8 @@ using ViajesMarysol.Data;
 using ViajesMarysol.Mappers.Implementations;
 using ViajesMarysol.Mappers.Interfaces;
 using ViajesMarysol.Models.Users;
+using ViajesMarysol.Services.Implementations;
+using ViajesMarysol.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +29,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
+builder.Services.AddHttpClient("OpenMateo");
+
 builder.Services.AddScoped<ITourMapper, TourMapper>();
+builder.Services.AddScoped<IWeatherService, WeatherService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

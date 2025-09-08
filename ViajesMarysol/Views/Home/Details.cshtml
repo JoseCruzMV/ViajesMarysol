@@ -1,6 +1,25 @@
-﻿@model TourViewModel
+﻿@model TourDetailsViewModel
 @{
     ViewData["Title"] = "Detalles del Tour";
+
+    string GetWeatherIcon(int weatherCode)
+    {
+        return weatherCode switch
+        {
+            0 => "☀️", // Clear sky
+            1 => "🌤️", // Mainly clear
+            2 => "⛅", // Partly cloudy
+            3 => "☁️", // Overcast
+            45 or 48 => "🌫️", // Fog
+            51 or 53 or 55 => "🌦️", // Drizzle
+            61 or 63 or 65 => "🌧️", // Rain
+            66 or 67 => "🌨️", // Freezing Rain
+            71 or 73 or 75 => "❄️", // Snow fall
+            80 or 81 or 82 => "🌦️", // Rain showers
+            95 or 96 or 99 => "⛈️", // Thunderstorm
+            _ => "❓",
+        };
+    }
 }
 
 <div>
@@ -23,4 +42,47 @@
             </ul>
         </dd>
     </dl>
+</div>
+
+<h4 class="mt-4">Clima reciente en los destinos</h4>
+<div class="row">
+    @if (Model.Cities is not null && Model.Cities.Any())
+    { 
+        @foreach (var city in Model.Cities)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Clima en @city.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.CityWeather.TryGetValue(city.Name, out var forecastDetail) && forecastDetail.Succeeded)
+                        {
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Clima</th>
+                                        <th>Temp. Max. (°C)</th>
+                                        <th>Temp. Min. (°C)</th>    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var day in forecastDetail.DailyForecasts)
+                                    {
+                                        <tr>
+                                            <td>@day.Date</td>
+                                            <td>@GetWeatherIcon(day.WeatherCode)</td>
+                                            <td>@day.TempMax</td>
+                                            <td>@day.TempMin</td>                                            
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>                            
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>
