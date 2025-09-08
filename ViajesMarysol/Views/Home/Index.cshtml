@@ -1,8 +1,45 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<TourViewModel>
+
+@{
+    ViewData["Title"] = "Inicio";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bienvenido a Viajer Marysol</h1>
+    <p>
+        Explore nuestras opciones de Tours.
+    </p>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        @if(Model.Any())
+        {
+            @foreach (var tour in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        @* <img src="@tour.ImageUrl" class="card-img-top" alt="@tour.Name" /> *@
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title>">@tour.Name</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@tour.DurationInDays Dias</h6>
+                            <p class="card-text">
+                                <strong>Destinos</strong>
+                                <ul>
+                                    @foreach (var city in tour.Cities)
+                                    {
+                                        <li>@($"{city.Name}, {city.Country}")</li>
+                                    }
+                                </ul>
+                            </p>
+                            <div class="mt-auto">
+                                <p class="card-text"><strong>Precio:</strong> $@tour.Price.ToString("F2")</p>
+                                @* <a href="@Url.Action("Details", "Tours", new { id = tour.Id })" class="btn btn-primary">Ver Detalles</a> *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
 </div>
