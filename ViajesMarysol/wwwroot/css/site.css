@@ -1,3 +1,144 @@
+:root {
+    --bs-primary: #005546; 
+    --bs-secondary: #c8d2d7; 
+    --bs-success: #2ecc71; 
+    --bs-info: #1ebe91; 
+
+    --bs-body-color: #0f2d3c; 
+    --bs-body-bg: #f8f9fa; 
+
+    --bs-link-color: #005546;
+    --bs-link-hover-color: #1ebe91;
+    --bs-link-active-color: #2ecc71;
+    --bs-link-visited-color: #0f2d3c;
+
+    /* Variables para navbar */
+    --bs-navbar-bg: #ffffff;
+    --bs-navbar-color: #005546;
+    --bs-navbar-hover-bg: #c8d2d7;
+    --bs-navbar-hover-color: #1ebe91;
+
+    /* Variables para list items */
+    --bs-list-bg: #f8f9fa;
+    --bs-list-color: #0f2d3c;
+    --bs-list-hover-bg: #c8d2d7;
+    --bs-list-hover-color: #005546;
+
+    /* Variables para formularios */
+    --bs-form-bg: #ffffff;
+    --bs-form-border: #c8d2d7;
+    --bs-form-focus: #1ebe91;
+    --bs-form-label: #0f2d3c;
+    --bs-form-input-color: #005546;
+
+    /* Variables para tablas */
+    --bs-table-bg: #ffffff;
+    --bs-table-border: #c8d2d7;
+    --bs-table-header-bg: #005546;
+    --bs-table-header-color: #fff;
+    --bs-table-row-hover-bg: #c8d2d7;
+    --bs-table-row-hover-color: #005546;
+}
+
+/* Sobrescribe las clases Bootstrap usando las variables personalizadas */
+a, .link {
+    color: var(--bs-link-color);
+    text-decoration: underline;
+}
+a:hover, .link:hover {
+    color: var(--bs-link-hover-color);
+    text-decoration: underline;
+}
+a:active, .link:active {
+    color: var(--bs-link-active-color);
+}
+a:visited, .link:visited {
+    color: var(--bs-link-visited-color);
+}
+
+.btn-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff !important;
+}
+.btn-secondary {
+    background-color: var(--bs-secondary) !important;
+    border-color: var(--bs-secondary) !important;
+    color: #000 !important;
+}
+.btn-success {
+    background-color: var(--bs-success) !important;
+    border-color: var(--bs-success) !important;
+    color: #fff !important;
+}
+.btn-info {
+    background-color: var(--bs-info) !important;
+    border-color: var(--bs-info) !important;
+    color: #fff !important;
+}
+
+/* Navbar personalizado */
+.navbar {
+    background-color: var(--bs-navbar-bg) !important;
+    color: var(--bs-navbar-color) !important;
+}
+.navbar .nav-link {
+    color: var(--bs-navbar-color) !important;
+}
+.navbar .nav-link:hover, .navbar .nav-link.active {
+    background-color: var(--bs-navbar-hover-bg) !important;
+    color: var(--bs-navbar-hover-color) !important;
+}
+
+/* List items personalizados */
+.list-group-item {
+    background-color: var(--bs-list-bg);
+    color: var(--bs-list-color);
+    border-color: var(--bs-list-hover-bg);
+}
+.list-group-item:hover, .list-group-item.active {
+    background-color: var(--bs-list-hover-bg);
+    color: var(--bs-list-hover-color);
+}
+
+/* Formularios personalizados */
+.form-control {
+    background-color: var(--bs-form-bg);
+    border-color: var(--bs-form-border);
+    color: var(--bs-form-input-color);
+}
+.form-control:focus {
+    border-color: var(--bs-form-focus);
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--bs-form-focus);
+}
+.form-label {
+    color: var(--bs-form-label);
+}
+
+/* Tablas personalizadas */
+.table {
+    background-color: var(--bs-table-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-table-border);
+}
+.table th {
+    background-color: var(--bs-table-header-bg);
+    color: var(--bs-table-header-color);
+    border-color: var(--bs-table-border);
+}
+.table td, .table th {
+    border-color: var(--bs-table-border);
+}
+.table-hover tbody tr:hover {
+    background-color: var(--bs-table-row-hover-bg);
+    color: var(--bs-table-row-hover-color);
+}
+
+/* Ejemplo para el fondo y color del body */
+body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
 html {
   font-size: 14px;
 }
