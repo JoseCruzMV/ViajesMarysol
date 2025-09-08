@@ -161,3 +161,49 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.hero-banner {
+    padding: 8rem 1rem;
+    background-color: var(--bs-primary) !important;
+    margin-bottom: 2rem;
+}
+
+.hero-banner h1, .hero-banner p {
+    color: #fff; 
+}
+
+/*Carrusel*/
+
+.multi-item-carousel .col-md-4 {
+    padding-bottom: 1rem;
+}
+
+/* Style the cards within the carousel */
+.multi-item-carousel .card {
+    margin: 0 .5em;
+    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    border: none;
+    height: 100%; /* Ensure all cards are the same height */
+}
+
+/* Optional: Slightly adjust control button positioning */
+.multi-item-carousel .carousel-control-prev,
+.multi-item-carousel .carousel-control-next {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7); /* Add light background for visibility */
+}
+
+.tours-section {
+    background-color: #f8f9fa;
+    padding: 4rem 0;
+}
+
+.tours-section .display-4 {
+    margin-bottom: 3rem;
+    font-weight: 300;
+    color: #0f2d3c;
+}

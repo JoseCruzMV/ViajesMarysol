@@ -4,42 +4,138 @@
     ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenido a Viajer Marysol</h1>
-    <p>
-        Explore nuestras opciones de Tours.
-    </p>
+<div class="hero-banner text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Vive la aventura</h1>
+        <p class="lead">Descubre nuevos lugares alrededor de todo el mundo.</p>
+        <a class="btn btn-info btn-lg" href="#tours-section">Explorar</a>
+    </div>
 </div>
 
-<div class="container mt-4">
-    <div class="row">
-        @if(Model.Any())
-        {
-            @foreach (var tour in Model)
-            {
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        @* <img src="@tour.ImageUrl" class="card-img-top" alt="@tour.Name" /> *@
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title>">@tour.Name</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@tour.DurationInDays Dias</h6>
-                            <p class="card-text">
-                                <strong>Destinos</strong>
-                                <ul>
-                                    @foreach (var city in tour.Cities!)
-                                    {
-                                        <li>@($"{city.Name}, {city.Country}")</li>
-                                    }
-                                </ul>
-                            </p>
-                            <div class="mt-auto">
-                                <p class="card-text"><strong>Precio:</strong> $@tour.Price.ToString("F2")</p>
-                                <a asp-action="Details" asp-controller="Home" asp-route-id="@tour.Id" class="btn btn-primary">Ver Mas</a>
+<div class="container py-5">
+    <div id="cityCarousel" class="carousel slide multi-item-carousel" data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTa-kTvlKx3gnFsJooZQRF09YQs9BwnIFvyMEDlmJEVERKvaYbKFEzZCZMm09yYxI-0bXsvDhJpumpZzXyHqcvB1Ie-mK3WD3mYctxpgQ" class="card-img-top" alt="Photo of Cancun">
+                            <div class="card-body">
+                                <h5 class="card-title">Cancún</h5>
+                                <p class="card-text">Sol, arena y playas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4noDb8hDNx_3lMSm43d7tPVtdE6v4cQd1xsPBVBCd8JVL3vIf8x2m5YELd0ZKHrxPmiu64ZG-cuG86yvYfvjnGuRgqvt4tKTe_uTD6CGIgQpG18Z1feSZkmIxwRBbYA1orDjj10t=w810-h468-n-k-no" class="card-img-top" alt="Photo of Mexico City">
+                            <div class="card-body">
+                                <h5 class="card-title">Ciudad de México</h5>
+                                <p class="card-text">Vibrante Cultura.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcSj7NTys9wLtCWlTTQ-gj8urUY99rGPutgO-q5Jst0jwWlCnaECXg6i2lZe9ciZZSyi0jxnA7x31BBme74O2zcGbvWqXCdUZVRyrPKyng" class="card-img-top" alt="Photo of Oaxaca">
+                            <div class="card-body">
+                                <h5 class="card-title">Oaxaca</h5>
+                                <p class="card-text">Los sabores de México.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQvj7zCmITP_aHmbKpJjgRAsW3o3o5zu_zT6ePq85LREG94WommOKSmDnFQ2oEpHP2CsQKdkLAyfW3hY0j8elZuPrFUxmSeMpnIWCotfQ" class="card-img-top" alt="Photo of Guadalajara">
+                            <div class="card-body">
+                                <h5 class="card-title">Guadalajara</h5>
+                                <p class="card-text">Mariache y Tequila.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcStJJXNBFoniQ17E1npD8VEaY59HB-5TKXCX_Z-ZvRBVthmOgzOg_nhauS8Qw34SIrRMIljW7kVaAg36D9VrdYqdbjFK5p4cO-iIdwyLw" class="card-img-top" alt="Photo of Tulum">
+                            <div class="card-body">
+                                <h5 class="card-title">Tulum</h5>
+                                <p class="card-text">Ruinas y mar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTHP9ne-HC54qnvKU0GAmLN1sLDMGSqP-53ewvVMyKj4gGQJLiF7tx3Oko_vPoR_EUoY_fPawJt6R4GQbyRe0o7rfB3-t4r20ekWU5qHfg" class="card-img-top" alt="Photo of San Miguel de Allende">
+                            <div class="card-body">
+                                <h5 class="card-title">San Miguel de Allende</h5>
+                                <p class="card-text">Ciudad colinial.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#cityCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#cityCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class="tours-section" id="tours-section">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="display-4">Tours Disponibles</h1>
+        </div>
+
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var tour in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">@tour.Name</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@tour.DurationInDays Dias</h6>
+                                <p class="card-text">
+                                    <strong>Destinos</strong>
+                                    <ul>
+                                        @if (tour.Cities != null)
+                                        {
+                                            @foreach (var city in tour.Cities)
+                                            {
+                                                <li>@($"{city.Name}, {city.Country}")</li>
+                                            }
+                                        }
+                                    </ul>
+                                </p>
+                                <div class="mt-auto">
+                                    <p class="card-text"><strong>Precio:</strong> $@tour.Price.ToString("F2")</p>
+                                    <a asp-action="Details" asp-controller="Home" asp-route-id="@tour.Id" class="btn btn-primary">Ver Mas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
-        }
+            else
+            {
+                <div class="col">
+                    <p class="text-center">No hay tours disponibles en este momento.</p>
+                </div>
+            }
+        </div>
     </div>
 </div>
