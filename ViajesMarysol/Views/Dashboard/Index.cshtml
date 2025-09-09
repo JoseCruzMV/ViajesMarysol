@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Tour>
+
+@{
+    ViewData["Title"] = "Mis tours";
+}
+
+<section>
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<div class="row">
+    @if (Model.Any())
+    {
+        @foreach (var tour in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@tour.Name</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@tour.DurationInDays Días</h6>
+                        <p>
+                            <strong>Destinations:</strong>
+                            @string.Join(", ", tour.Cities.Select(c => c.Name))
+                        </p>
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@tour.Id" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No tienes tours guardados.</p>
+    }
+</div>
+</section>

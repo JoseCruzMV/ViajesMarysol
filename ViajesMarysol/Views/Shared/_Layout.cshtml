@@ -29,6 +29,12 @@
                                 <a class="nav-link text-dark" asp-controller="Cities" asp-action="Index">Administrar Destinos</a>
                             </li>
                         }
+                        @if (User?.Identity is not null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item ">
+                                <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">Mis Tours</a>
+                            </li>
+                        }
 
                         <partial name="_loginPartial" />
                     </ul>
