@@ -1,4 +1,9 @@
 ﻿@model TourDetailsViewModel
+
+@using Microsoft.AspNetCore.Identity
+@using ViajesMarysol.Models.Users
+@inject SignInManager<ApplicationUser> SignInManager
+
 @{
     ViewData["Title"] = "Detalles del Tour";
 
@@ -44,6 +49,32 @@
         </dd>
     </dl>
 </div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="my-3">
+        @if (Model.SavedbyUser)
+        {
+            <form asp-action="RemoveTour" asp-controller="Home" method="post">
+                <input type="hidden" name="tourId" value="@Model.Id" />
+                <button type="submit" class="btn btn-secondary">Eliminar de Mis Tours</button>
+                <p class="d-inline-block ms-2 text-success">Ya has guardado este tour</p>
+            </form>
+        }
+        else
+        {
+                <form asp-action="SaveTour" asp-controller="Home" method="post">
+                <input type="hidden" name="tourId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary">Guardar Tour</button>
+            </form>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        <a asp-area="Identity" asp-page="/Account/Login">Inicia sesión</a> o <a asp-area="Identity" asp-page="/Account/Register">Registrate</a> para guardar este tour.</div>
+}
 
 <h4 class="mt-4">Clima reciente en los destinos</h4>
 <div class="row">

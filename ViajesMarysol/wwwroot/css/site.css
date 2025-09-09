@@ -43,6 +43,68 @@ section{
     --bs-table-row-hover-color: #005546;
 }
 
+:root {
+    --bs-primary: #005546; 
+    --bs-secondary: #c8d2d7; 
+    --bs-success: #2ecc71; 
+    --bs-info: #1ebe91; 
+
+    --bs-warning: #ffc107; /* Bootstrap warning base */
+    --bs-warning-bg: #fffbe6; /* Fondo suave para warning */
+    --bs-warning-border: #ffe082; /* Borde para warning */
+    --bs-warning-color: #856404; /* Texto para warning */
+
+    --bs-body-color: #0f2d3c; 
+    --bs-body-bg: #f8f9fa; 
+
+    --bs-link-color: #005546;
+    --bs-link-hover-color: #1ebe91;
+    --bs-link-active-color: #2ecc71;
+    --bs-link-visited-color: #0f2d3c;
+
+    /* Variables para navbar */
+    --bs-navbar-bg: #ffffff;
+    --bs-navbar-color: #005546;
+    --bs-navbar-hover-bg: #c8d2d7;
+    --bs-navbar-hover-color: #1ebe91;
+
+    /* Variables para list items */
+    --bs-list-bg: #f8f9fa;
+    --bs-list-color: #0f2d3c;
+    --bs-list-hover-bg: #c8d2d7;
+    --bs-list-hover-color: #005546;
+
+    /* Variables para formularios */
+    --bs-form-bg: #ffffff;
+    --bs-form-border: #c8d2d7;
+    --bs-form-focus: #1ebe91;
+    --bs-form-label: #0f2d3c;
+    --bs-form-input-color: #005546;
+
+    /* Variables para tablas */
+    --bs-table-bg: #ffffff;
+    --bs-table-border: #c8d2d7;
+    --bs-table-header-bg: #005546;
+    --bs-table-header-color: #fff;
+    --bs-table-row-hover-bg: #c8d2d7;
+    --bs-table-row-hover-color: #005546;
+}
+
+/* ...resto del archivo... */
+
+/* Bootstrap warning personalizado */
+.alert-warning,
+.bg-warning,
+.text-bg-warning {
+    background-color: var(--bs-warning-bg) !important;
+    color: var(--bs-warning-color) !important;
+    border-color: var(--bs-warning-border) !important;
+}
+.btn-warning {
+    background-color: var(--bs-warning) !important;
+    border-color: var(--bs-warning) !important;
+    color: #212529 !important;
+}
 /* Sobrescribe las clases Bootstrap usando las variables personalizadas */
 a, .link {
     color: var(--bs-link-color);

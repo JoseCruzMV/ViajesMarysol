@@ -1,10 +1,13 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ViajesMarysol.Data;
 using ViajesMarysol.Mappers.Interfaces;
 using ViajesMarysol.Models;
+using ViajesMarysol.Models.Users;
 using ViajesMarysol.Services.Interfaces;
 using ViajesMarysol.ViewModels;
 
@@ -13,12 +16,14 @@ namespace ViajesMarysol.Controllers
     public class HomeController(
             ViajesMarysolDBContext context,
             ITourMapper tourMapper,
-            IWeatherService weatherService
+            IWeatherService weatherService,
+            UserManager<ApplicationUser> userManager
         ) : Controller
     {
         private readonly ViajesMarysolDBContext _context = context;
         private readonly ITourMapper _tourMapper = tourMapper;
         private readonly IWeatherService _weatherService = weatherService;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -56,7 +61,7 @@ namespace ViajesMarysol.Controllers
                 }
             }
 
-            var tourViewModel  = new TourDetailsViewModel
+            var tourViewModel = new TourDetailsViewModel
             {
                 Id = tour.Id,
                 Name = tour.Name,
@@ -72,7 +77,15 @@ namespace ViajesMarysol.Controllers
                 CityWeather = weatherData
             };
 
-            //var tourViewModel = _tourMapper.TourModelToViewModel(tour);
+            var userId = _userManager.GetUserId(User);
+            if (userId != null)
+            {
+                var userTour = await _context.UserTours.FindAsync(userId, id);
+                if (userTour != null)
+                {
+                    tourViewModel.SavedbyUser = true;
+                }
+            }
             return View(tourViewModel);
         }
 
@@ -80,6 +93,44 @@ namespace ViajesMarysol.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveTour(int tourId)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null) { return Unauthorized(); }
+            var previousTour = await _context.UserTours
+                .FirstOrDefaultAsync(ut => ut.TourId == tourId && ut.UserId == userId);
+
+            if (previousTour == null)
+            {
+                var newUserTour = new UserTour { UserId = userId, TourId = tourId };
+                await _context.UserTours.AddAsync(newUserTour);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Details", new { id = tourId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveTour(int tourId)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null) { return Unauthorized(); }
+            var previousTour = await _context.UserTours
+                .FirstOrDefaultAsync(ut => ut.TourId == tourId && ut.UserId == userId);
+            if (previousTour != null)
+            {
+                _context.UserTours.Remove(previousTour);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Details", new { id = tourId });
         }
     }
 }

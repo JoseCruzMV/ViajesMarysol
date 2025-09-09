@@ -11,6 +11,8 @@ public class TourDetailsViewModel
 
     public Dictionary<string, CityForecastViewModel> CityWeather { get; set; } = [];
 
+    public bool SavedbyUser { get; set; } = false;
+
 }
 
 public class CityForecastViewModel
